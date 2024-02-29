@@ -28,12 +28,11 @@ function App() {
 
       return {
         ...prevState,
+        selectedProjectId: undefined,
         projects: [...prevState.projects, newProject],
       };
     });
   }
-
-  console.log(projectsState);
 
   let content;
 
