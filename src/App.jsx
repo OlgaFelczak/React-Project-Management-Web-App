@@ -7,7 +7,6 @@ import SelectedProject from './components/SelectedProject.jsx';
 
 function App() {
   const [projectsState, setProjectsState] = useState(() => {
-    // Try to load the state from localStorage
     const savedState = localStorage.getItem('projectsState');
     if (savedState) {
       return JSON.parse(savedState);
@@ -34,7 +33,6 @@ function App() {
         tasks: [newTask, ...prevState.tasks],
       };
 
-      // Store the new state in localStorage
       localStorage.setItem('projectsState', JSON.stringify(newState));
 
       return newState;
@@ -48,7 +46,6 @@ function App() {
         tasks: prevState.tasks.filter((task) => task.id !== id),
       };
 
-      // Store the new state in localStorage
       localStorage.setItem('projectsState', JSON.stringify(newState));
 
       return newState;
@@ -96,7 +93,6 @@ function App() {
         projects: [...prevState.projects, newProject],
       };
 
-      // Store the new state in localStorage
       localStorage.setItem('projectsState', JSON.stringify(newState));
 
       return newState;
@@ -113,7 +109,6 @@ function App() {
         ),
       };
 
-      // Store the new state in localStorage
       localStorage.setItem('projectsState', JSON.stringify(newState));
 
       return newState;
