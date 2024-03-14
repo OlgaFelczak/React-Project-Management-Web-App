@@ -6,10 +6,18 @@ import ProjectsSidebar from './components/ProjectsSidebar.jsx';
 import SelectedProject from './components/SelectedProject.jsx';
 
 function App() {
-  const [projectsState, setProjectsState] = useState({
-    selectedProjectId: undefined,
-    projects: [],
-    tasks: [],
+  const [projectsState, setProjectsState] = useState(() => {
+    // Try to load the state from localStorage
+    const savedState = localStorage.getItem('projectsState');
+    if (savedState) {
+      return JSON.parse(savedState);
+    } else {
+      return {
+        selectedProjectId: undefined,
+        projects: [],
+        tasks: [],
+      };
+    }
   });
 
   function handleAddTask(text) {
@@ -21,19 +29,29 @@ function App() {
         id: taskId,
       };
 
-      return {
+      const newState = {
         ...prevState,
         tasks: [newTask, ...prevState.tasks],
       };
+
+      // Store the new state in localStorage
+      localStorage.setItem('projectsState', JSON.stringify(newState));
+
+      return newState;
     });
   }
 
   function handleDeleteTask(id) {
     setProjectsState((prevState) => {
-      return {
+      const newState = {
         ...prevState,
         tasks: prevState.tasks.filter((task) => task.id !== id),
       };
+
+      // Store the new state in localStorage
+      localStorage.setItem('projectsState', JSON.stringify(newState));
+
+      return newState;
     });
   }
 
@@ -72,23 +90,33 @@ function App() {
         id: projectId,
       };
 
-      return {
+      const newState = {
         ...prevState,
         selectedProjectId: undefined,
         projects: [...prevState.projects, newProject],
       };
+
+      // Store the new state in localStorage
+      localStorage.setItem('projectsState', JSON.stringify(newState));
+
+      return newState;
     });
   }
 
   function handleDeleteProject() {
     setProjectsState((prevState) => {
-      return {
+      const newState = {
         ...prevState,
         selectedProjectId: undefined,
         projects: prevState.projects.filter(
           (project) => project.id !== prevState.selectedProjectId
         ),
       };
+
+      // Store the new state in localStorage
+      localStorage.setItem('projectsState', JSON.stringify(newState));
+
+      return newState;
     });
   }
 
