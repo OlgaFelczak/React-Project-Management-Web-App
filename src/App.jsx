@@ -19,7 +19,7 @@ function App() {
     }
   });
 
-  function handleAddTask(text) {
+  function handleAddTask(text, projectId) {
     setProjectsState((prevState) => {
       const taskId = Math.random();
       const newTask = {
